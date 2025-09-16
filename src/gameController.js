@@ -2,7 +2,7 @@ import domController from './domController.js';
 import player from './player.js';
 import ship from './ship.js';
 
-const playGame = (function () {
+function gameController () {
 	const humanPlayer = player();
 	const computerPlayer = player();
 
@@ -27,6 +27,6 @@ const playGame = (function () {
 	const dom = domController(humanPlayer.board, computerPlayer.board);
 	dom.renderHumanBoard();
 	dom.renderComputerBoard();
-})();
+};
 
-export default playGame;
+export default gameController;

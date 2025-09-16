@@ -9,7 +9,7 @@ function domController(humanBoardInstance, computerBoardInstance) {
 
 				// Show ships if human instance
 				if (boardInstance === humanBoardInstance) {
-                    console.log()
+                    console.log('Ships:', humanBoardInstance.ships);
 				}
 
 				// Disable hit and missed squares

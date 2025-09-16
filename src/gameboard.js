@@ -1,5 +1,3 @@
-
-
 function gameboard() {
 	let ships = [];
 	let hitSquares = [];
