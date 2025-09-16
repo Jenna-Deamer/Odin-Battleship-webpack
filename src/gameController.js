@@ -1,11 +1,8 @@
-
 import domController from './domController.js';
 import player from './player.js';
 import ship from './ship.js';
 
 const playGame = (function () {
-    const dom = domController();
-
 	const humanPlayer = player();
 	const computerPlayer = player();
 
@@ -26,10 +23,10 @@ const playGame = (function () {
 	computerPlayer.board.placeShip([5, 1], 'horizontal', destroyer2);
 	computerPlayer.board.placeShip([6, 0], 'vertical', submarine2);
 	computerPlayer.board.placeShip([3, 6], 'vertical', battleship2);
-    
-    // render
-    dom.renderHumanBoard();
-    dom.renderComputerBoard();
+
+	const dom = domController(humanPlayer.board, computerPlayer.board);
+	dom.renderHumanBoard();
+	dom.renderComputerBoard();
 })();
 
 export default playGame;

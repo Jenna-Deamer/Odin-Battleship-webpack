@@ -1,31 +1,31 @@
-function domController() {
+function domController(humanBoardInstance, computerBoardInstance) {
 	const humanBoard = document.querySelector('#human-board');
 	const computerBoard = document.querySelector('#computer-board');
 
-
-	function renderHumanBoard() {
+	function renderBoard(boardElement, boardInstance) {
 		for (let col = 0; col < 10; col++) {
 			for (let row = 0; row < 10; row++) {
 				const cell = document.createElement('button');
-                humanBoard.appendChild(cell)
-			}
-			// logic to disable any misses
 
-			// logic to color any hits
+				// Show ships if human instance
+				if (boardInstance === humanBoardInstance) {
+                    console.log()
+				}
+
+				// Disable hit and missed squares
+
+				boardElement.appendChild(cell);
+			}
 		}
 	}
 
-	function renderComputerBoard() {
-        	for (let col = 0; col < 10; col++) {
-			for (let row = 0; row < 10; row++) {
-				const cell = document.createElement('button');
-                computerBoard.appendChild(cell)
-			}
-			// logic to disable any misses
+	function renderHumanBoard() {
+		renderBoard(humanBoard, humanBoardInstance);
+	}
 
-			// logic to color any hits
-		}
-    }
+	function renderComputerBoard() {
+		renderBoard(computerBoard, computerBoardInstance);
+	}
 
 	return { renderComputerBoard, renderHumanBoard };
 }
