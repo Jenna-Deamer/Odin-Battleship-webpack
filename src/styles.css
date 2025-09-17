@@ -56,10 +56,11 @@ h1 {
 
 #human-board,
 #computer-board {
-    border: dashed 2px #000000;
+    margin-top: 1em;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 2px;
+    grid-template-columns: repeat(10, 50px);
+    align-items: center;
+    justify-content: center;
 }
 
 #human-board button,
