@@ -1,14 +1,7 @@
 function domController(humanBoardInstance, computerBoardInstance) {
 	const humanBoard = document.querySelector('#human-board');
 	const humanShips = humanBoardInstance.ships;
-
 	const computerBoard = document.querySelector('#computer-board');
-	const computerShips = computerBoardInstance.ships;
-	const computerMissedSquares = computerBoardInstance.missedSquares;
-
-    computerMissedSquares.push([0,0])
-    const computerHitSquares = computerBoardInstance.hitSquares;
-    computerHitSquares.push([1,5]);
 
 	function highlightHumanShips(col, row, cell) {
 		const isShipCell = humanShips.some((ship) =>
@@ -24,50 +17,59 @@ function domController(humanBoardInstance, computerBoardInstance) {
 	}
 
 	function highlightMissedSquares(col, row, cell, boardInstance) {
-        const missedSquares = boardInstance.missedSquares;
+		const missedSquares = boardInstance.missedSquares;
 
 		const isCellMissed = missedSquares.some(([missedCol, missedRow]) => {
 			return missedCol === col && missedRow === row;
 		});
 
-        if(isCellMissed){
-            cell.style.backgroundColor = '#3e4247'
-        }
+		if (isCellMissed) {
+			cell.style.backgroundColor = '#3e4247';
+		}
 	}
 
-    function highlightHitSquares(col,row,cell, boardInstance){
-        const hitSquares = boardInstance.hitSquares;
+	function highlightHitSquares(col, row, cell, boardInstance) {
+		const hitSquares = boardInstance.hitSquares;
 
-        const isCellHit = hitSquares.some(([hitCol,hitRow]) => {
-            return hitCol === col && hitRow === row;
-        })
+		const isCellHit = hitSquares.some(([hitCol, hitRow]) => {
+			return hitCol === col && hitRow === row;
+		});
 
-        if(isCellHit){
-            cell.style.backgroundColor = '#cc2a25'
-        }
-    }
-	function renderBoard(boardElement, boardInstance) {
-        boardElement.innerHTML = ''; // clear board
-
+		if (isCellHit) {
+			cell.style.backgroundColor = '#cc2a25';
+		}
+	}
+    // create buttons once
+	function initBoard(boardElement, ) {
 		for (let col = 0; col < 10; col++) {
 			for (let row = 0; row < 10; row++) {
 				const cell = document.createElement('button');
 
 				cell.dataset.col = col;
 				cell.dataset.row = row;
-
-				// Highlight human player's ships
-				if (boardInstance === humanBoardInstance) {
-					highlightHumanShips(col, row, cell);
-				}
-
-				// Mark hits & misses
-				highlightMissedSquares(col, row, cell, boardInstance);
-                highlightHitSquares(col,row,cell,boardInstance)
-
 				boardElement.appendChild(cell);
 			}
 		}
+	}
+
+    // update button styles
+	function renderBoard(boardElement, boardInstance) {
+        const cells = boardElement.querySelectorAll('button');
+        
+    cells.forEach((cell) => {
+        const col = parseInt(cell.dataset.col);
+        const row = parseInt(cell.dataset.row);
+
+		// Highlight human player's ships
+		if (boardInstance === humanBoardInstance) {
+			highlightHumanShips(col, row, cell);
+		}
+
+		// Mark hits & misses
+		highlightMissedSquares(col, row, cell, boardInstance);
+		highlightHitSquares(col, row, cell, boardInstance);
+    });
+    
 	}
 
 	function renderHumanBoard() {
@@ -78,7 +80,7 @@ function domController(humanBoardInstance, computerBoardInstance) {
 		renderBoard(computerBoard, computerBoardInstance);
 	}
 
-	return { renderComputerBoard, renderHumanBoard };
+	return { renderComputerBoard, renderHumanBoard , initBoard};
 }
 
 export default domController;
