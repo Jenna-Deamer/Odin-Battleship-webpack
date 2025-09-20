@@ -14,14 +14,29 @@ function gameController() {
 	}
 
 	function computerTurn() {
+		if (isGameOver) return;
 		console.log('Computer Turn');
+
 		// Attack
+		let result;
+		while (result !== 'Miss') {
+			const row = Math.floor(Math.random() * 10);
+			const col = Math.floor(Math.random() * 10);
+			result = humanPlayer.board.receiveAttack([col, row]);
+		}
+		updateBoards();
 
-		// update boards
-
-		// Check sunk status
-
-		// switch turn
+		// check sunk status
+		if (
+			humanPlayer.board.checkSunkStatus() ||
+			computerPlayer.board.checkSunkStatus()
+		) {
+			isGameOver = true;
+			console.log('Game Over');
+		}
+		if (result === 'Miss') {
+			currentTurn = humanPlayer;
+		}
 	}
 
 	function attachBoardEventListeners() {
@@ -30,7 +45,7 @@ function gameController() {
 			cell.addEventListener('click', () => {
 				if (currentTurn !== humanPlayer || isGameOver) return; // exit if its not human's turn or if game is over
 
-				// Check clicked positions
+				// Store clicked pos & attack
 				const row = parseInt(cell.dataset.row);
 				const col = parseInt(cell.dataset.col);
 
@@ -43,10 +58,10 @@ function gameController() {
 					humanPlayer.board.checkSunkStatus() ||
 					computerPlayer.board.checkSunkStatus()
 				) {
-					isGameOver === true;
+					isGameOver = true;
 					console.log('Game Over');
 				} else {
-					// Only switch turns isf Human misses
+					// Only switch turns if Human misses
 					if (result === 'Miss') {
 						currentTurn = computerPlayer;
 						computerTurn();
