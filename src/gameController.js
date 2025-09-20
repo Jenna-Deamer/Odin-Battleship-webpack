@@ -27,12 +27,12 @@ function gameController() {
 		updateBoards();
 
 		// check sunk status
-		if (
-			humanPlayer.board.checkSunkStatus() ||
-			computerPlayer.board.checkSunkStatus()
-		) {
+		if (humanPlayer.board.checkSunkStatus()) {
 			isGameOver = true;
-			console.log('Game Over');
+			alert('Game Over ' + 'Computer Wins');
+		} else if (computerPlayer.board.checkSunkStatus()) {
+			isGameOver = true;
+			alert('Game Over ' + 'Human Wins');
 		}
 		if (result === 'Miss') {
 			currentTurn = humanPlayer;
@@ -54,12 +54,12 @@ function gameController() {
 				updateBoards();
 
 				// check sunk status
-				if (
-					humanPlayer.board.checkSunkStatus() ||
-					computerPlayer.board.checkSunkStatus()
-				) {
+				if (humanPlayer.board.checkSunkStatus()) {
 					isGameOver = true;
-					console.log('Game Over');
+					alert('Game Over ' + 'Computer Wins');
+				} else if (computerPlayer.board.checkSunkStatus()) {
+					isGameOver = true;
+					alert('Game Over ' + 'Human Wins');
 				} else {
 					// Only switch turns if Human misses
 					if (result === 'Miss') {
