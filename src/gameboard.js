@@ -79,9 +79,9 @@ function gameboard() {
 	function checkSunkStatus() {
 		const allShipsAreSunk = ships.every((shipObj) => shipObj.ship.isSunk());
 		if (allShipsAreSunk) {
-			return 'All ships are down';
+			return true
 		} else {
-			return 'Some ships remain';
+			return false
 		}
 	}
 

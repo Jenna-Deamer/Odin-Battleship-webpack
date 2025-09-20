@@ -39,11 +39,18 @@ function gameController() {
 				updateBoards();
 
 				// check sunk status
-
-				// Only switch turns if Human misses
-				if (result === 'Miss') {
-					currentTurn = computerPlayer;
-					computerTurn();
+				if (
+					humanPlayer.board.checkSunkStatus() ||
+					computerPlayer.board.checkSunkStatus()
+				) {
+					isGameOver === true;
+					console.log('Game Over');
+				} else {
+					// Only switch turns isf Human misses
+					if (result === 'Miss') {
+						currentTurn = computerPlayer;
+						computerTurn();
+					}
 				}
 			});
 		});
