@@ -40,6 +40,19 @@ function gameboard() {
 			}
 		}
 
+		// check for overlap with other ships
+		for (let i = 0; i < positions.length; i++) {
+			let pos = positions[i];
+			for (let j = 0; j < ships.length; j++) {
+				let existingShip = ships[j];
+				for (let k = 0; k < existingShip.positions.length; k++) {
+					let p = existingShip.positions[k];
+					if (p[0] === pos[0] && p[1] === pos[1]) {
+						return 'Overlap';
+					}
+				}
+			}
+		}
 
 		// push ship with occupied tiles
 		ships.push({ ship, positions });
