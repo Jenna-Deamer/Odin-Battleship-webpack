@@ -40,6 +40,7 @@ function gameboard() {
 			}
 		}
 
+
 		// push ship with occupied tiles
 		ships.push({ ship, positions });
 		return 'Ship Placed';
@@ -79,9 +80,9 @@ function gameboard() {
 	function checkSunkStatus() {
 		const allShipsAreSunk = ships.every((shipObj) => shipObj.ship.isSunk());
 		if (allShipsAreSunk) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	}
 

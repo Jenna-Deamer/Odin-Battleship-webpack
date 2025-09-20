@@ -3,6 +3,7 @@ import player from './player.js';
 import ship from './ship.js';
 
 function gameController() {
+	const placeShipButton = document.querySelector('#place-ships-btn');
 	const humanPlayer = player();
 	const computerPlayer = player();
 	let isGameOver = false;
@@ -38,6 +39,29 @@ function gameController() {
 			currentTurn = humanPlayer;
 		}
 	}
+	function randomizeShipPlacement(boardInstance) {
+		const shipsToPlace = [ship(2), ship(3), ship(3), ship(4), ship(5)];
+
+		shipsToPlace.forEach((shipObj) => {
+			let placed = false;
+			while (!placed) {
+				const direction = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+				const row = Math.floor(Math.random() * 10);
+				const col = Math.floor(Math.random() * 10);
+				const result = boardInstance.placeShip([row, col], direction, shipObj);
+				if (result === 'Ship Placed') placed = true;
+			}
+		});
+	}
+
+	placeShipButton.addEventListener('click', () => {
+		randomizeShipPlacement(humanPlayer.board);
+		randomizeShipPlacement(computerPlayer.board);
+
+		updateBoards();
+
+		placeShipButton.style.display = 'none';
+	});
 
 	function attachBoardEventListeners() {
 		const cells = document.querySelectorAll('#computer-board button');
@@ -71,23 +95,31 @@ function gameController() {
 		});
 	}
 
-	// human player ships
-	const destroyer1 = ship(2);
-	const submarine1 = ship(3);
-	const battleship1 = ship(4);
+	// Human player ships
+	// const destroyer = ship(2);
+	// const submarine = ship(3);
+	// const cruiser = ship(3);
+	// const battleship = ship(4);
+	// const carrier = ship(5);
 
-	humanPlayer.board.placeShip([2, 2], 'horizontal', destroyer1);
-	humanPlayer.board.placeShip([2, 5], 'vertical', submarine1);
-	humanPlayer.board.placeShip([6, 2], 'horizontal', battleship1);
+	// humanPlayer.board.placeShip([2, 2], 'horizontal', destroyer);
+	// humanPlayer.board.placeShip([2, 5], 'vertical', submarine);
+	// humanPlayer.board.placeShip([6, 2], 'horizontal', battleship);
+	// humanPlayer.board.placeShip([0, 0], 'vertical', cruiser);
+	// humanPlayer.board.placeShip([9, 0], 'horizontal', carrier);
 
-	// computer player ships
-	const destroyer2 = ship(2);
-	const submarine2 = ship(3);
-	const battleship2 = ship(4);
+	// Computer player ships
+	// const destroyer2 = ship(2);
+	// const submarine2 = ship(3);
+	// const cruiser2 = ship(3);
+	// const battleship2 = ship(4);
+	// const carrier2 = ship(5);
 
-	computerPlayer.board.placeShip([0, 0], 'horizontal', destroyer2);
-	computerPlayer.board.placeShip([6, 0], 'vertical', submarine2);
-	computerPlayer.board.placeShip([3, 6], 'vertical', battleship2);
+	// computerPlayer.board.placeShip([1, 1], 'horizontal', destroyer2);
+	// computerPlayer.board.placeShip([3, 4], 'vertical', submarine2);
+	// computerPlayer.board.placeShip([5, 5], 'horizontal', battleship2);
+	// computerPlayer.board.placeShip([0, 6], 'vertical', cruiser2);
+	// computerPlayer.board.placeShip([7, 2], 'horizontal', carrier2);
 
 	const dom = domController(humanPlayer.board, computerPlayer.board);
 	dom.initBoard(document.querySelector('#human-board'));
